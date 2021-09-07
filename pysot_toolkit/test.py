@@ -34,17 +34,17 @@ parser.add_argument('--name', default='', type=str,
         help='name of results')
 args = parser.parse_args()
 
-torch.set_num_threads(1)
+# torch.set_num_threads(1)
 
 
 def main():
     # load config
 
-    dataset_root = '/Users/qanelph/Desktop/work/supervisely/trans-t/data/test' #Absolute path of the dataset
-    net_path = '/Users/qanelph/Desktop/work/supervisely/trans-t/data/model/transt.pth' #Absolute path of the model
+    dataset_root = '/root/trans-t/data/test' #Absolute path of the dataset
+    net_path = '/root/trans-t/data/model/transt.pth' #Absolute path of the model
 
     # create model
-    net = NetWithBackbone(net_path=net_path, use_gpu=False)
+    net = NetWithBackbone(net_path=net_path, use_gpu=True)
     tracker = Tracker(name='transt', net=net, window_penalty=0.49, exemplar_size=128, instance_size=256)
 
     # create dataset
@@ -56,6 +56,7 @@ def main():
     total_lost = 0
 
     for v_idx, video in enumerate(dataset):
+
         if args.video != '':
             # test one special video
             if video.name != args.video:
@@ -65,15 +66,21 @@ def main():
         scores = []
         track_times = []
         for idx, (img, gt_bbox) in enumerate(video):
+
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             tic = cv2.getTickCount()
             if idx == 0:
+
                 cx, cy, w, h = get_axis_aligned_bbox(np.array(gt_bbox))
+
                 gt_bbox_ = [cx-w/2, cy-h/2, w, h]
-                init_info = {'init_bbox':gt_bbox_}
+
+                init_info = {'init_bbox': gt_bbox_}
                 tracker.initialize(img, init_info)
+
                 pred_bbox = gt_bbox_
                 scores.append(None)
+
                 if 'VOT2018-LT' == args.dataset:
                     pred_bboxes.append([1])
                 else:
@@ -83,11 +90,15 @@ def main():
                 pred_bbox = outputs['target_bbox']
                 pred_bboxes.append(pred_bbox)
                 scores.append(outputs['best_score'])
+
             toc += cv2.getTickCount() - tic
             track_times.append((cv2.getTickCount() - tic)/cv2.getTickFrequency())
+
             if idx == 0:
                 cv2.destroyAllWindows()
+
             if args.vis and idx > 0:
+                print('RUNNING 7')
                 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                 gt_bbox = list(map(int, gt_bbox))
                 pred_bbox = list(map(int, pred_bbox))
@@ -98,6 +109,7 @@ def main():
                 cv2.putText(img, str(idx), (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
                 cv2.imshow(video.name, img)
                 cv2.waitKey(1)
+                print('RUNNING 8')
         toc /= cv2.getTickFrequency()
         # save results
         if 'VOT2018-LT' == args.dataset:
