@@ -12,6 +12,7 @@ ENV PATH=$PATH:c:/miniconda/bin
 
 RUN conda --version
 
+
 RUN conda create -n transt python=3.7
 RUN conda activate transt
 
