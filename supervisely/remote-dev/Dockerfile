@@ -2,6 +2,7 @@
 ARG IMAGE
 FROM $IMAGE
 
+SHELL ["/bin/bash", "--login", "-c"]
 
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
 
