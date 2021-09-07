@@ -2,9 +2,31 @@
 ARG IMAGE
 FROM $IMAGE
 
-RUN git clone https://github.com/supervisely-ecosystem/yolov5.git -b embed-tracking-to-serve-app
 
-RUN pip install -r /yolov5/requirements.txt
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
+
+
+RUN bash Anaconda3-2021.05-Linux-x86_64.sh -b -p /miniconda
+ENV PATH=$PATH:c:/miniconda/bin
+
+RUN conda --version
+
+RUN conda create -n transt python=3.7
+RUN conda activate transt
+
+# Install PyTorch
+
+RUN conda install -c pytorch pytorch=1.5 torchvision=0.6.1 cudatoolkit=10.2
+# Install other packages
+
+RUN conda install matplotlib pandas tqdm
+RUN pip install opencv-python tb-nightly visdom scikit-image tikzplotlib gdown
+RUN conda install cython scipy
+RUN sudo apt-get install libturbojpeg
+RUN pip install pycocotools jpeg4py
+RUN pip install wget yacs
+RUN pip install shapely==1.6.4.post2
+
 
 RUN apt-get update && apt-get install -y openssh-server
 EXPOSE 22
