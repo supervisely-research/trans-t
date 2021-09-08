@@ -97,8 +97,11 @@ def main():
             if idx == 0:
                 cv2.destroyAllWindows()
 
-            if args.vis and idx > 0:
-                print('RUNNING 7')
+            if args.vis:
+                visualize_path = './visualize_tracks/'
+
+                os.makedirs(visualize_path, exist_ok=True)
+
                 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                 gt_bbox = list(map(int, gt_bbox))
                 pred_bbox = list(map(int, pred_bbox))
@@ -107,9 +110,10 @@ def main():
                 cv2.rectangle(img, (pred_bbox[0], pred_bbox[1]),
                               (pred_bbox[0]+pred_bbox[2], pred_bbox[1]+pred_bbox[3]), (0, 255, 255), 3)
                 cv2.putText(img, str(idx), (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
-                cv2.imshow(video.name, img)
-                cv2.waitKey(1)
-                print('RUNNING 8')
+                cv2.imwrite(os.path.join(visualize_path, f'{idx:06d}.png'), img)
+
+                # cv2.waitKey(1)
+
         toc /= cv2.getTickFrequency()
         # save results
         if 'VOT2018-LT' == args.dataset:
