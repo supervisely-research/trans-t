@@ -1,4 +1,5 @@
 FROM supervisely/base-pytorch:6.0.22
+FROM nvidia/cuda:11.1.1-devel-ubuntu18.04
 
 
 # Install PyTorch
