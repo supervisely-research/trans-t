@@ -20,6 +20,8 @@ RUN pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f
 
 RUN apt-get install libturbojpeg
 
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+
 RUN git clone https://github.com/supervisely-research/trans-t.git -b develop
 RUN pip install -r /trans-t/requirements.txt
 
