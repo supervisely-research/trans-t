@@ -51,4 +51,4 @@ RUN chown root:root $home/.ssh/authorized_keys && \
 COPY sshd_deamon.sh /sshd_deamon.sh
 RUN chmod 755 /sshd_deamon.sh
 CMD ["/sshd_deamon.sh"]
-ENTRYPOINT ["bash", "-c", "/sshd_deamon.sh"]
+ENTRYPOINT ["sh", "-c", "/sshd_deamon.sh"]
