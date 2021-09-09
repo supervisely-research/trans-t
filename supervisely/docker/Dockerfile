@@ -4,7 +4,7 @@ FROM nvidia/cuda:11.1.1-devel-ubuntu18.04
 
 RUN apt-get update
 RUN apt-get install -y sudo
-RUN apt install wget
+RUN apt -y install wget
 
 
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
