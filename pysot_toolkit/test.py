@@ -81,10 +81,7 @@ def main():
                 pred_bbox = gt_bbox_
                 scores.append(None)
 
-                if 'VOT2018-LT' == args.dataset:
-                    pred_bboxes.append([1])
-                else:
-                    pred_bboxes.append(pred_bbox)
+                pred_bboxes.append(pred_bbox)
             else:
                 outputs = tracker.track(img)
                 pred_bbox = outputs['target_bbox']

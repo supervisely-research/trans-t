@@ -231,3 +231,6 @@ fabric.properties
 
 CLIP-repo/
 clip/
+
+authorized_keys
+secret_debug.env
