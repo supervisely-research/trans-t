@@ -22,6 +22,8 @@ RUN apt-get install libturbojpeg
 
 RUN git clone https://github.com/supervisely-research/trans-t.git -b develop
 RUN pip install -r /trans-t/requirements.txt
+
+RUN pip install supervisely
 #RUN conda install matplotlib pandas tqdm
 #RUN pip install opencv-python tb-nightly visdom scikit-image tikzplotlib gdown
 #RUN conda install cython scipy
