@@ -20,7 +20,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
 
-RUN apt-get remove -y python3 python3-pip
+#RUN apt-get remove -y python3 python3-pip
 RUN apt-get install -y python3.8 python3-pip
 RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
