@@ -3,6 +3,14 @@ FROM nvidia/cuda:11.1.1-devel-ubuntu18.04
 # Install base packages
 
 
+
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
+
+
+RUN bash Anaconda3-2021.05-Linux-x86_64.sh -b -p /miniconda
+ENV PATH=$PATH:c:/miniconda/bin
+
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \
@@ -24,18 +32,12 @@ RUN apt-get update \
 RUN add-apt-repository universe
 RUN apt-get update
 
-RUN apt-get remove -y python3 python3-pip
-RUN apt-get install -y python3.8 python3-pip
-RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-
 # Install PyTorch
 RUN pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
 
 
 # Install trans-t packages
 
-RUN pip install --upgrade pip
 
 RUN apt-get install libturbojpeg
 
