@@ -48,7 +48,6 @@ RUN apt-get install libturbojpeg
 RUN git clone https://github.com/supervisely-ecosystem/trans-t.git
 RUN pip install -r /trans-t/requirements.txt
 
-RUN pip install supervisely==6.1.95
 
 RUN mkdir /trans-t/data/model/
 RUN cd /trans-t/data/model/ && wget --no-check-certificate 'https://drive.google.com/uc?id=1uxnvaKdTtYj-IgmrYwi2hCD5ZddTK2d8&export=download' -O transt.pth
