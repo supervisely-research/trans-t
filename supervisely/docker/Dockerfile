@@ -35,6 +35,8 @@ RUN pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f
 
 # Install trans-t packages
 
+RUN pip install --upgrade pip
+
 RUN apt-get install libturbojpeg
 
 
