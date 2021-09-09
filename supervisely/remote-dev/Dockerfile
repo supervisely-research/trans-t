@@ -24,10 +24,10 @@ RUN git clone https://github.com/supervisely-research/trans-t.git -b develop
 RUN pip install -r /trans-t/requirements.txt
 
 RUN pip install supervisely==6.1.95
-RUN pip install gdown==3.13.0
 
-RUN gdown https://drive.google.com/uc?id=1uxnvaKdTtYj-IgmrYwi2hCD5ZddTK2d8&export=download
-RUN mv transt.pth /trans-t/data/model/transt.pth
+RUN mkdir /trans-t/data/model/
+RUN cd /trans-t/data/model/ && wget --no-check-certificate 'https://drive.google.com/uc?id=1uxnvaKdTtYj-IgmrYwi2hCD5ZddTK2d8&export=download' -O transt.pth
+
 
 #RUN conda install matplotlib pandas tqdm
 #RUN pip install opencv-python tb-nightly visdom scikit-image tikzplotlib gdown
